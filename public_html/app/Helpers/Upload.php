@@ -22,6 +22,22 @@ class Upload {
     /** DIRETÓTIOS */
     private $Folder;
     private static $BaseDir;
+    
+    
+    /* EXEMPLO BASE64
+    
+    function base64_to_jpeg($base64_string, $Folder, $Name) {
+    
+        $img = str_replace('data:image/png;base64,', '', $base64_string);
+        $img = str_replace(' ', '+', $img);
+        $data = base64_decode($img);
+        $this->CreateFolder($Folder);
+        $file = self::$BaseDir . $Folder . $Name ;
+        $success = file_put_contents($output_file, $data);
+        return $success;
+    }
+    
+    */
 
     /**
      * Verifica e cria o diretório padrão de uploads no sistema!<br>
