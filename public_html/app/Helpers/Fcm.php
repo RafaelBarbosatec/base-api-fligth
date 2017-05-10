@@ -53,7 +53,7 @@
 				curl_setopt( $ch, CURLOPT_POSTFIELDS, json_encode( $options ) );
 
                 // SEND POST
-				$this->Result = curl_exec($ch);
+				$this->Result[] = curl_exec($ch);
 
                 unset($sendTokens);
                 
