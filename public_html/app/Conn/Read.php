@@ -11,7 +11,7 @@ class Read extends Conn {
     private $Select;
     private $Places;
     private $Result;
-
+    private $Error;
     /** @var PDOStatement */
     private $Read;
 
@@ -55,6 +55,10 @@ class Read extends Conn {
      */
     public function getResult() {
         return $this->Result;
+    }
+
+    public function getError() {
+        return $this->Error;
     }
 
     /**
@@ -117,7 +121,7 @@ class Read extends Conn {
             $this->Result = $this->Read->fetchAll();
         } catch (PDOException $e) {
             $this->Result = null;
-            WSErro("<b>Erro ao Ler:</b> {$e->getMessage()}", $e->getCode());
+            $this->Error = $e->getMessage();
         }
     }
 

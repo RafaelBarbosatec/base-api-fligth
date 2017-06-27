@@ -13,7 +13,7 @@ class Update extends Conn {
     private $Termos;
     private $Places;
     private $Result;
-
+    private $Error;
     /** @var PDOStatement */
     private $Update;
 
@@ -46,6 +46,10 @@ class Update extends Conn {
      */
     public function getResult() {
         return $this->Result;
+    }
+
+    public function getError() {
+        return $this->Error;
     }
 
     /**
@@ -96,7 +100,7 @@ class Update extends Conn {
             $this->Result = true;
         } catch (PDOException $e) {
             $this->Result = null;
-            WSErro("<b>Erro ao Ler:</b> {$e->getMessage()}", $e->getCode());
+            $this->Error = $e->getMessage();
         }
     }
 

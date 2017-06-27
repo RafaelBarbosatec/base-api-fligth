@@ -5,7 +5,7 @@ Flight::route('/', function(){
 });
 
 
-Flight::route('/oi', array('HelloController','get'));
-Flight::route('/ai/@nome', array('HelloController','sayHello'));
+Flight::route('/usuarios', array('UsuariosController','get'));
+//Flight::route('/ai/@nome', array('HelloController','sayHello'));
 
 ?>

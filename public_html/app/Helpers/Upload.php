@@ -24,7 +24,7 @@ class Upload {
     private static $BaseDir;
     
     
-    /* EXEMPLO BASE64
+    // EXEMPLO BASE64
     
     function base64_to_jpeg($base64_string, $Folder, $Name) {
     
@@ -36,8 +36,7 @@ class Upload {
         $success = file_put_contents($output_file, $data);
         return $success;
     }
-    
-    */
+
 
     /**
      * Verifica e cria o diretório padrão de uploads no sistema!<br>

@@ -2,7 +2,7 @@
 
 Flight::set('flight.log_errors', true);
 
-Flight::register('db', 'PDO', array('mysql:host=localhost;dbname=flight','root','root'),
+Flight::register('db', 'PDO', array('mysql:host=localhost;dbname=baseApi','root','root'),
   function($db){
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   }

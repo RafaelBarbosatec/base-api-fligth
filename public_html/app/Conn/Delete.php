@@ -12,6 +12,7 @@ class Delete extends Conn {
     private $Termos;
     private $Places;
     private $Result;
+    private $Error;
 
     /** @var PDOStatement */
     private $Delete;
@@ -30,6 +31,10 @@ class Delete extends Conn {
 
     public function getResult() {
         return $this->Result;
+    }
+
+    public function getError() {
+        return $this->Error;
     }
 
     public function getRowCount() {
@@ -66,7 +71,7 @@ class Delete extends Conn {
             $this->Result = true;
         } catch (PDOException $e) {
             $this->Result = null;
-            WSErro("<b>Erro ao Deletar:</b> {$e->getMessage()}", $e->getCode());
+            $this->Error = $e->getMessage();
         }
     }
 

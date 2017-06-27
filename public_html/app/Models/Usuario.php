@@ -1,6 +1,6 @@
 <?php
 
-class Hello {
+class Usuario {
 
     public static $instance;
 
@@ -11,7 +11,7 @@ class Hello {
     public static function getInstance() {
         
         if (!isset(self::$instance))
-            self::$instance = new Hello();
+            self::$instance = new Usuario();
 
         return self::$instance;
 
@@ -20,7 +20,7 @@ class Hello {
     public function getAll(){
 
         $read = new Read();
-        $read->ExeRead('User', '');
+        $read->ExeRead('Usuarios', '');
         $todos = $read->getResult();
         /*$all = array();
         foreach ($todos as $key => $value) {
@@ -28,7 +28,14 @@ class Hello {
             $all[] = $res;
         }*/
 
-        return Flight::json(array('error'=> false, 'data'=> array('Testes'=>$todos)));
+        if ($todos) {
+           return Flight::json(array('op'=> true, 'data'=> array('Testes'=>$todos)));
+        }else{
+            //echo $read->getError();
+            return Flight::json(array('op'=> false, 'msg'=> 'Ops, ocorreu algum erro!'));
+        }
+
+        
 
     }
 
@@ -41,7 +48,6 @@ class Hello {
 
 }
 
-?>
 
 /* EXEMPLOS CONEXÃO
 
@@ -64,3 +70,6 @@ class Hello {
         }
 
 */
+
+?>
+
