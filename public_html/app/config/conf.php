@@ -2,7 +2,7 @@
 
 Flight::set('flight.log_errors', true);
 
-Flight::register('db', 'PDO', array('mysql:host=localhost;dbname=baseApi','root','root'),
+Flight::register('db', 'PDO', array('mysql:host=localhost;dbname=apiBase','root','root'),
   function($db){
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   }
@@ -31,6 +31,21 @@ Flight::map('Auth', function(){
     	Flight::halt();
     }
  
+});
+
+Flight::map('resp', function($data,$msg){
+
+	$op = true;
+	if(!empty($msg)){
+		$op = false;
+	}
+
+	if(empty($data)){
+		$data = array();
+	}
+
+	return array('op'=> $op,'msg'=>$msg,'data'=>$data);
+
 });
 
 // Get an instance of your class

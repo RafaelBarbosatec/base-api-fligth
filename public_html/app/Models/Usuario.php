@@ -29,10 +29,11 @@ class Usuario {
         }*/
 
         if ($todos) {
-           return Flight::json(array('op'=> true, 'data'=> array('Testes'=>$todos)));
+            return Flight::resp($todos,'');
         }else{
             //echo $read->getError();
-            return Flight::json(array('op'=> false, 'msg'=> 'Ops, ocorreu algum erro!'));
+			return Flight::resp($todos,'Ops, ocorreu algum erro!');
+       
         }
 
         
