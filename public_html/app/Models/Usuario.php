@@ -28,8 +28,11 @@ class Usuario {
             $all[] = $res;
         }*/
 
+        //Função que pega o codigo do usuario q requisitou
+         $cod = Flight::cod_usuario();
+
         if ($todos) {
-            return Flight::resp($todos,'');
+            return Flight::resp($todos, '');
         }else{
             //echo $read->getError();
 			return Flight::resp($todos,'Ops, ocorreu algum erro!');
