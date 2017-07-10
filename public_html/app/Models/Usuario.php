@@ -19,9 +19,9 @@ class Usuario {
 
     public function getAll(){
 
-        $read = new Read();
+        /*$read = new Read();
         $read->ExeRead('Usuarios', '');
-        $todos = $read->getResult();
+        $todos = $read->getResult();*/
         /*$all = array();
         foreach ($todos as $key => $value) {
             $res['nome'] = $value['NOME_USER'];
@@ -29,7 +29,8 @@ class Usuario {
         }*/
 
         //Função que pega o codigo do usuario q requisitou
-         $cod = Flight::cod_usuario();
+        // $cod = Flight::cod_usuario();
+        $todos = Flight::db()->select('User','*');
 
         if ($todos) {
             return Flight::resp($todos, '');

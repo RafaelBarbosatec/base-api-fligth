@@ -3,7 +3,7 @@ class UsuariosController {
 
     public static function get(){
         
-        Flight::Auth();
+       // Flight::Auth();
         
 		return Flight::json(Usuario::getInstance()->getAll());
 

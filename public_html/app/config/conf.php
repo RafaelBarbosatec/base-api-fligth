@@ -1,12 +1,17 @@
 <?php
-
+use Medoo\Medoo;
 Flight::set('flight.log_errors', true);
 
-Flight::register('db', 'PDO', array('mysql:host=localhost;dbname=fligth','root','root'),
+/*Flight::register('db', 'PDO', array('mysql:host=localhost;dbname=fligth','root','root'),
   function($db){
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   }
-);
+);*/
+
+Flight::map('db', function(){
+
+    return ConnMedoo::getInstance();
+});
 
 //Retorno para rota não encontrada
 Flight::map('notFound', function(){
@@ -76,4 +81,5 @@ Flight::map('resp', function($data,$msg){
 //
 //$db = Flight::db();
 include 'autoload.php';
+
 ?>

@@ -1,6 +1,7 @@
 <?php
 
-require 'flight/Flight.php';
+require_once 'src/flight/Flight.php';
+require_once 'src/medoo/Medoo.php';
 
 define('TOKEN_AUTHORIZATION', '123456');
 
@@ -10,6 +11,7 @@ include 'app/config/conf.php';
 MODELO: Authorization: token={TOKEN_AUTHORIZATION}
 */
 //Flight::Auth();
+
 
 include 'app/routers.php';
 
