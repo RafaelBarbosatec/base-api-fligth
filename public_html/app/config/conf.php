@@ -9,68 +9,80 @@ Flight::set('flight.log_errors', true);
 );*/
 
 Flight::map('db', function(){
-
-    return ConnMedoo::getInstance();
+    //return ConnMedoo::getInstance();
+    return ConnSparrow::getInstance();
 });
 
 //Retorno para rota não encontrada
 Flight::map('notFound', function(){
     // Display custom 404 page
-    return Flight::json(array('error'=> true,'mensagem'=>'Rota não encontrada'));
+    return Flight::json(array('op'=> false,'msg'=>'Rota não encontrada'));
 });
 
 //Autorização do header
-// Authorization: token=123456
-Flight::map('Auth', function(){
+// Authorization: 123456
+/*Flight::map('Auth', function(){
     $header = getallheaders();
     if (isset($header['Authorization'])) {
 
-        $read = new Read();
-        $read->ExeRead('token_s', "where token = '".$header['Authorization']."'");
+        $count = Flight::db()->from('token_s')
+                                ->where('token',$header['Authorization'])
+                                ->count();
 
-        if ($read->getRowCount() == 0) {
-            echo Flight::json(Flight::resp('','Nao autorizado.'));
+        if ($count == 0) {
+            echo Flight::json(array('op'=> false,'msg'=>'Não autorizado'));
             Flight::halt();
         }
-    	/*$token = substr($header['Authorization'],6);
-
-	    if (empty($token) || $token != TOKEN_AUTHORIZATION) {
-	    	echo Flight::json(array('error'=> true, 'data'=> array('mensagem'=>'Não autorizado')));
-    		Flight::halt();
-	    }*/
 
     }else{
-    	echo Flight::json(Flight::resp('','Nao autorizado.'));
+    	echo Flight::json(array('op'=> false,'msg'=>'Não autorizado'));
     	Flight::halt();
     }
  
-});
+});*/
 
 // Função pra pegar o id do usuário q realizou a requizição com autorização no header
+// x-api-key = {token}
 Flight::map('cod_usuario',function(){
     $header = getallheaders();
-    if (isset($header['Authorization'])){
-        $read = new Read();
-        $read->ExeRead('token_s', "where token= '".$header['Authorization']."' limit 1");
+    if (isset($header['x-api-key'])){
 
-        return $read->getResult()[0]['cod'];
+        $cod_usuario = Flight::db()->from('token_s')
+                     ->where('token',$header['x-api-key'],1)
+                     ->value('cod');
+        
+        if (empty($cod_usuario)) {
+
+            echo Flight::json(array('op'=> false,'msg'=>'Não autorizado'));
+            Flight::halt();
+
+        }else{
+
+             return $cod_usuario;
+
+        }
+
     }else{
-        return false;
+         echo Flight::json(array('op'=> false,'msg'=>'Não autorizado'));
+         Flight::halt();
     }
 });
 
-Flight::map('resp', function($data,$msg){
+Flight::map('resp', function($data,$msg = '',$cod = 200){
 
 	$op = true;
 	if(!empty($msg)){
 		$op = false;
+
 	}
 
-	if(empty($data)){
-		$data = array();
+    $resp['op'] = $op;
+    $resp['msg'] = $msg;
+	if(!empty($data)){
+		$resp['data'] = $data;
 	}
 
-	return array('op'=> $op,'msg'=>$msg,'data'=>$data);
+	return Flight::json($resp,$cod);
 
 });
 

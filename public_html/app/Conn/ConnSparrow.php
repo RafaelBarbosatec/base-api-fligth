@@ -1,21 +1,20 @@
 <?php
 
-use Medoo\Medoo;
 
-class ConnMedoo extends medoo
+class ConnSparrow
 {
 	public static $instance;
 	
 	public static function getInstance() {
 		if (!isset(self::$instance)) 
 		{
-			self::$instance = 	new self([
-									'database_type' => 'mysql',
-									'database_name' => 'fligth',
-									'server' => 'localhost',
+			self::$instance = 	new Sparrow();
+			self::$instance->setDb([
+									'type' => 'pdomysql',
+									'database' => 'fligth',
+									'hostname' => 'localhost',
 									'username' => 'root',
 									'password' => 'root',
-									'charset' => 'utf8',
 								]);
 		}
 		return self::$instance;

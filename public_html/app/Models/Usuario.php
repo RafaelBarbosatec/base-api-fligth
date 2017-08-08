@@ -19,24 +19,30 @@ class Usuario {
 
     public function getAll(){
 
-        /*$read = new Read();
-        $read->ExeRead('Usuarios', '');
-        $todos = $read->getResult();*/
-        /*$all = array();
-        foreach ($todos as $key => $value) {
-            $res['nome'] = $value['NOME_USER'];
-            $all[] = $res;
-        }*/
-
         //Função que pega o codigo do usuario q requisitou
         // $cod = Flight::cod_usuario();
-        $todos = Flight::db()->select('User','*');
+         $todos = Flight::db()->from('Usuarios')
+                               // ->sortAsc('cod')
+                               // ->join('token_s',array('Usuarios.cod'=>'token_s.cod'))
+                                //->update(array('nome'=>'Manuel'))
+                               // ->delete()
+                                //->execute();
+                                ->select()
+                                //->value('nome');
+                                ->many();
+
+       /* $todos = Flight::db()->from('Usuarios')
+                                ->insert(['nome'=>'Rafael aaaaa','sexo'=>'M'])
+                                ->execute();
+        $todos = Flight::db()->insert_id;*/
 
         if ($todos) {
-            return Flight::resp($todos, '');
+            //return Flight::resp($todos, '');
+            return $todos;
         }else{
             //echo $read->getError();
-			return Flight::resp($todos,'Ops, ocorreu algum erro!');
+			//return Flight::resp($todos,'Ops, ocorreu algum erro!');
+            return false;
        
         }
 
