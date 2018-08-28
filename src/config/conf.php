@@ -12,33 +12,6 @@ Flight::map('notFound', function(){
     return Flight::json(array('op'=> false,'msg'=>'Rota não encontrada'));
 });
 
-// Função pra pegar o id do usuário q realizou a requizição com autorização no header
-// x-api-key = {token}
-Flight::map('user',function(){
-    $header = getallheaders();
-    if (isset($header['x-api-key'])){
-
-        $cod_usuario = Flight::db()->from('token_s')
-                     ->where('token',$header['x-api-key'],1)
-                     ->value('cod');
-        
-        if (empty($cod_usuario)) {
-
-            echo Flight::json(array('op'=> false,'msg'=>'Não autorizado'));
-            Flight::halt();
-
-        }else{
-
-             return $cod_usuario;
-
-        }
-
-    }else{
-         echo Flight::json(array('op'=> false,'msg'=>'Não autorizado'));
-         Flight::halt();
-    }
-});
-
 Flight::map('resp', function($data){
 
     $resp['op'] = true;
