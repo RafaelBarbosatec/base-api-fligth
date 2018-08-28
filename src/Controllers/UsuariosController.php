@@ -38,7 +38,9 @@ class UsuariosController {
         //     }
         // }
 
-        return Flight::resp("Aqui deveria listar os usuarios");
+        $usuarios = Usuario::getInstance()->getAll();
+
+        return Flight::resp($usuarios);
 		
 
 	}

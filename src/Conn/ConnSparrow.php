@@ -11,7 +11,7 @@ class ConnSparrow
 			self::$instance = 	new Sparrow();
 			self::$instance->setDb([
 									'type' => 'pdomysql',
-									'database' => 'fligth',
+									'database' => 'flight',
 									'hostname' => 'localhost',
 									'username' => 'root',
 									'password' => 'root',

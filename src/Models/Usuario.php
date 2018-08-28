@@ -21,7 +21,7 @@ class Usuario {
 
         //Função que pega o codigo do usuario q requisitou
         // $cod = Flight::cod_usuario();
-         $todos = Flight::db()->from('Usuarios')
+         $todos = Flight::db()->from('users')
                                // ->sortAsc('cod')
                                // ->join('token_s',array('Usuarios.cod'=>'token_s.cod'))
                                 //->update(array('nome'=>'Manuel'))
